@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  sound:
+    build: ./Docker/Python/
+    environment:
+      - PULSE_SERVER=docker.for.mac.localhost
+    volumes:
+      - ./works:/works
+      - type: bind
+        source: ~/.config/pulse
+        target: /root/.config/pulse
+    ports:
+      - "8004:8004"
+    tty: true
+    stdin_open: true
+    privileged: true
+    command: jupyter nteract --port 8004 --ip=0.0.0 --allow-root --NotebookApp.token=''
